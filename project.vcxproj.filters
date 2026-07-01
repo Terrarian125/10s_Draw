@@ -68,8 +68,14 @@
     <ClCompile Include="Source\SettingPanel.cpp">
       <Filter>Scene\[01]TitleScene</Filter>
     </ClCompile>
+    <ClCompile Include="Source\SelectScene.cpp">
+      <Filter>Scene\[02]SelectScene</Filter>
+    </ClCompile>
     <ClCompile Include="Source\PlayScene.cpp">
-      <Filter>Scene\[02]PlayScene</Filter>
+      <Filter>Scene\[03]PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\HelpScene.cpp">
+      <Filter>Scene\[05]Help</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -154,8 +160,14 @@
     <ClInclude Include="Source\SettingPanel.h">
       <Filter>Scene\[01]TitleScene</Filter>
     </ClInclude>
+    <ClInclude Include="Source\SelectScene.h">
+      <Filter>Scene\[02]SelectScene</Filter>
+    </ClInclude>
     <ClInclude Include="Source\PlayScene.h">
-      <Filter>Scene\[02]PlayScene</Filter>
+      <Filter>Scene\[03]PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\HelpScene.h">
+      <Filter>Scene\[05]Help</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -177,8 +189,17 @@
     <Filter Include="Scene\[01]TitleScene">
       <UniqueIdentifier>{cfb69a90-2236-4220-9ce7-7d32c14b1a4b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene\[02]PlayScene">
+    <Filter Include="Scene\[02]SelectScene">
       <UniqueIdentifier>{9f4fb845-2296-4785-be0e-8a9e98a0d5cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\[03]PlayScene">
+      <UniqueIdentifier>{deed31e1-b218-4b4f-8052-c0e5de4e616b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\[04]リザルト">
+      <UniqueIdentifier>{27f1726e-81b0-4a11-88ce-829660503ba7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\[05]Help">
+      <UniqueIdentifier>{89853b47-dae2-4612-8512-b45580751d82}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

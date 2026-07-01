@@ -31,11 +31,12 @@ TitleScene::TitleScene()
     int btnImg_b_ti_01 = LoadGraph("data/title/UI_Ti_01.png");
     int btnImg_b_ti_02 = LoadGraph("data/title/UI_Ti_02.png");
     int btnImg_b_ti_03 = LoadGraph("data/title/UI_Ti_03.png");
+	int btnImg_b_ti_04 = LoadGraph("data/title/UI_Ti_04.png");
 
     //オフラインプレイボタン
     auto b_ti_00 = new GuiButton(bx, by, bw, bh, "Play");
     b_ti_00->SetImage(btnImg_b_ti_00);
-    b_ti_00->onClick = []() {SceneManager::ChangeScene("PLAY");};
+    b_ti_00->onClick = []() {SceneManager::ChangeScene("SELECT");};
     buttons.push_back(b_ti_00);
 
     //オンラインプレイボタン
@@ -44,21 +45,27 @@ TitleScene::TitleScene()
     b_ti_01->onClick = []() {};
     buttons.push_back(b_ti_01);
 
-    //Optionボタン (設定)
-    auto b_ti_02 = new GuiButton(bx, by + bi * 2, bw, bh, "Option");
+	//Helpボタン
+    auto b_ti_02 = new GuiButton(bx, by + bi*2, bw, bh, "HELP");
     b_ti_02->SetImage(btnImg_b_ti_02);
-    b_ti_02->onClick = [this]() { this->mySettingPanel->SetVisible(true); };
+    b_ti_02->onClick = []() { SceneManager::ChangeScene("HELP"); };
     buttons.push_back(b_ti_02);
 
-    //Exitボタン (終了確認ダイアログを開く)
-    auto b_ti_03 = new GuiButton(bx, by + bi * 3, bw, bh, "Exit");
+    //Optionボタン (設定)
+    auto b_ti_03 = new GuiButton(bx, by + bi * 3, bw, bh, "Option");
     b_ti_03->SetImage(btnImg_b_ti_03);
-    b_ti_03->onClick = [this]() {
+    b_ti_03->onClick = [this]() { this->mySettingPanel->SetVisible(true); };
+    buttons.push_back(b_ti_03);
+
+    //Exitボタン (終了確認ダイアログを開く)
+    auto b_ti_04 = new GuiButton(bx, by + bi * 4, bw, bh, "Exit");
+    b_ti_04->SetImage(btnImg_b_ti_04);
+    b_ti_04->onClick = [this]() {
         this->isExitDialogVisible = true;
         for (auto b : this->exitButtons) b->SetActive(true);
         this->currentSelect = 1; //初期選択を「いいえ」(1) に設定して誤終了を防ぐ
         };
-    buttons.push_back(b_ti_03);
+    buttons.push_back(b_ti_04);
 
     //終了確認ダイアログ用のボタン配置
     int cx = 1280 / 2;
