@@ -18,11 +18,13 @@ HelpScene::HelpScene()
     int bi = 100; //ボタン間隔
 
     //ボタン画像のロード
-    int btnImg_b_se_00 = LoadGraph("data/help/UI_he_00.png");
-    int btnImg_b_se_01 = LoadGraph("data/help/UI_he_01.png");
-    int btnImg_b_se_02 = LoadGraph("data/help/UI_he_02.png");
-    int btnImg_b_se_03 = LoadGraph("data/help/UI_he_03.png");
-    int btnImg_b_se_04 = LoadGraph("data/help/UI_he_04.png");
+    int btnImg_b_he_00 = LoadGraph("data/help/UI_he_00.png");
+    int btnImg_b_he_01 = LoadGraph("data/help/UI_he_01.png");
+    int btnImg_b_he_02 = LoadGraph("data/help/UI_he_02.png");
+    int btnImg_b_he_03 = LoadGraph("data/help/UI_he_03.png");
+    int btnImg_b_he_04 = LoadGraph("data/help/UI_he_04.png");
+	int btnImg_b_he_05 = LoadGraph("data/help/UI_he_05.png");
+
     //解説用画像をロード
     help00 = LoadGraph("data/help/Help_00.png");
     help01 = LoadGraph("data/help/Help_01.png");
@@ -30,49 +32,42 @@ HelpScene::HelpScene()
     help03 = LoadGraph("data/help/Help_03.png");
 	help04 = LoadGraph("data/help/Help_04.png");
 	help05 = LoadGraph("data/help/Help_05.png");
-    helpDe = LoadGraph("data/help/Help_De.png");
 
     //左上の戻るボタン
-    auto b_se_00 = new GuiButton(20, 0, 100, 100, "Back");
-    b_se_00->SetImage(btnImg_b_se_00);
-    b_se_00->onClick = []() { SceneManager::ChangeScene("TITLE"); };
-    buttons.push_back(b_se_00);
+    auto b_he_00 = new GuiButton(20, 0, 100, 100, "Back");
+    b_he_00->SetImage(btnImg_b_he_00);
+    b_he_00->onClick = []() { SceneManager::ChangeScene("TITLE"); };
+    buttons.push_back(b_he_00);
 
     //説明書きボタン
-    auto b_se_01 = new GuiButton(600, 150, 600, 500, "Help");
-    b_se_01->SetImage(helpDe);
-    b_se_01->onClick = []() {};
-    buttons.push_back(b_se_01);
+    auto b_he_01 = new GuiButton(600, 150, 600, 500, "Help");
+    b_he_01->SetImage(help01);
+    b_he_01->onClick = []() {};
+    buttons.push_back(b_he_01);
 
-    //
-    auto b_se_02 = new GuiButton(bx, by, bw, bh, "1");
-    b_se_02->SetImage(btnImg_b_se_02);
-    b_se_02->onClick = []() {};
-    buttons.push_back(b_se_02);
+    //ゲームの説明①
+    auto b_he_02 = new GuiButton(bx, by, bw, bh, "1");
+    b_he_02->SetImage(btnImg_b_he_02);
+    b_he_02->onClick = []() {};
+    buttons.push_back(b_he_02);
 
-    //
-    auto b_se_03 = new GuiButton(bx, by + bi, bw, bh, "2");
-    b_se_03->SetImage(btnImg_b_se_03);
-    b_se_03->onClick = []() {};
-    buttons.push_back(b_se_03);
+	//ゲームの説明②
+    auto b_he_03 = new GuiButton(bx, by + bi, bw, bh, "2");
+    b_he_03->SetImage(btnImg_b_he_03);
+    b_he_03->onClick = []() {};
+    buttons.push_back(b_he_03);
 
-    //
-    auto b_se_04 = new GuiButton(bx, by + bi * 2, bw, bh, "3");
-    b_se_04->SetImage(btnImg_b_se_04);
-    b_se_04->onClick = []() {};
-    buttons.push_back(b_se_04);
+	//Arcade説明
+    auto b_he_04 = new GuiButton(bx, by + bi * 2, bw, bh, "3");
+    b_he_04->SetImage(btnImg_b_he_04);
+    b_he_04->onClick = []() {};
+    buttons.push_back(b_he_04);
 
-    //
-    auto b_se_05 = new GuiButton(bx, by + bi * 3, bw, bh, "4");
-    b_se_05->SetImage(btnImg_b_se_04);
-    b_se_05->onClick = []() {};
-    buttons.push_back(b_se_05);
-
-    //
-	auto b_se_06 = new GuiButton(bx, by + bi * 4, bw, bh, "5");
-    b_se_06->SetImage(btnImg_b_se_04);
-    b_se_06->onClick = []() {};
-	buttons.push_back(b_se_06);
+    //VSの説明
+    auto b_he_05 = new GuiButton(bx, by + bi * 3, bw, bh, "4");
+    b_he_05->SetImage(btnImg_b_he_05);
+    b_he_05->onClick = []() {};
+    buttons.push_back(b_he_05);
 }
 
 HelpScene::~HelpScene()
