@@ -5,7 +5,8 @@
 #include "../Library/GuiButton.h"
 
 HelpScene::HelpScene()
-    : bgImage(-1)
+    : bgImage_00(-1)
+	, bgImage_01(-1)
     , help00(-1)
     , help01(-1)
     , help02(-1)
@@ -16,7 +17,8 @@ HelpScene::HelpScene()
     , currentSelect(0)
 {
     //背景画像のロード
-    bgImage = LoadGraph("data/help/BG_he_00.png");
+    bgImage_00 = LoadGraph("data/help/BG_he_00.png");
+	bgImage_01 = LoadGraph("data/help/BG_he_01.png");
 
     //メニューのボタン配置設定
     int bx = 50;  //ボタンのX座標
@@ -81,7 +83,8 @@ HelpScene::HelpScene()
 HelpScene::~HelpScene()
 {
 	//
-    DeleteGraph(bgImage);
+    DeleteGraph(bgImage_00);
+	DeleteGraph(bgImage_01);
     DeleteGraph(help00);
     DeleteGraph(help01);
     DeleteGraph(help02);
@@ -96,6 +99,12 @@ void HelpScene::Update()
     //通常時の処理
     for (auto b : buttons) {
         b->Update();
+    }
+
+    //背景を左へスクロールさせる
+    bgScrollX += 2;
+    if (bgScrollX >= 1280) {
+        bgScrollX = 0; // 画面幅分スクロールしたらリセット
     }
 
     //上下キーで選択切り替え
@@ -134,8 +143,11 @@ void HelpScene::Update()
 
 void HelpScene::Draw()
 {
-    //背景描画
-    DrawExtendGraph(0, 0, 1280, 720, bgImage, FALSE);
+    DrawExtendGraph(0 - bgScrollX, 0, 1280 - bgScrollX, 720, bgImage_00, FALSE);
+    DrawExtendGraph(1280 - bgScrollX, 0, 2560 - bgScrollX, 720, bgImage_00, FALSE);
+
+    DrawExtendGraph(0, 0, 1280, 720, bgImage_01, TRUE);
+
 
     //ボタン描画
     for (auto b : buttons) b->Draw();

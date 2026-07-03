@@ -13,7 +13,9 @@ public:
     void Draw() override;
 
 private:
-    int bgImage;                     // 背景画像のグラフィックハンドル
+    int bgImage_00;                     // 背景画像のグラフィックハンドル
+    int bgImage_01;
+    float bgScrollX;
     std::vector<GuiButton*> buttons; // メインメニューのボタン配列
 
     // 終了確認ダイアログ関連

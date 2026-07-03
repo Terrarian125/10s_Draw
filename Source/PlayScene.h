@@ -13,6 +13,8 @@ public:
     void Draw() override;
 
 private:
-    int bgImage;                     // 背景画像のグラフィックハンドル
+    int bgImage_00;                     // 背景画像のグラフィックハンドル
+    int bgImage_01;
+    int bgScrollX;
     std::vector<GuiButton*> buttons; // ボタン配列
 };

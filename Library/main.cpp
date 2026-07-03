@@ -18,7 +18,7 @@
 #include "../Source/Screen.h"
 #include "../ImGui/imgui_impl_dxlib.hpp"
 
-//自作Inputをインクルード
+//Inputをインクルード
 #include "../Library/Input.h" 
 #include "../Library/GameSetting.h"
 #define CoGVersion (4.1)

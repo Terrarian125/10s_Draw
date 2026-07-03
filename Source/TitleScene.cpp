@@ -7,13 +7,16 @@
 #include "SettingPanel.h"
 
 TitleScene::TitleScene()
-    : bgImage(-1)
+    : bgImage_00(-1)
+	, bgImage_01(-1)
     , mySettingPanel(nullptr)
     , isExitDialogVisible(false)
     , currentSelect(0)
+    , bgScrollX(0)
 {
     //背景画像のロード
-    bgImage = LoadGraph("data/title/BG_Ti_00.png");
+    bgImage_00 = LoadGraph("data/title/BG_Ti_00.png");
+    bgImage_01 = LoadGraph("data/title/BG_Ti_01.png");
 
     //設定パネルの生成
     mySettingPanel = new SettingPanel();
@@ -90,7 +93,8 @@ TitleScene::TitleScene()
 TitleScene::~TitleScene()
 {
     //メモリ解放と画像削除
-    DeleteGraph(bgImage);
+    DeleteGraph(bgImage_00);
+    DeleteGraph(bgImage_01);
     delete mySettingPanel;
 }
 
@@ -118,6 +122,12 @@ void TitleScene::Update()
         return; //他の処理を遮断
     }
 
+    //背景を左へスクロールさせる
+    bgScrollX += 2;
+    if (bgScrollX >= 1280) {
+        bgScrollX = 0; // 画面幅分スクロールしたらリセット
+    }
+
     //通常時の処理
     for (auto b : buttons) {
         b->Update();
@@ -140,7 +150,11 @@ void TitleScene::Update()
 void TitleScene::Draw()
 {
     //背景描画
-    DrawExtendGraph(0, 0, 1280, 720, bgImage, FALSE);
+    DrawExtendGraph(0 - bgScrollX, 0, 1280 - bgScrollX, 720, bgImage_00, FALSE);
+    DrawExtendGraph(1280 - bgScrollX, 0, 2560 - bgScrollX, 720, bgImage_00, FALSE);
+
+    DrawExtendGraph(0, 0, 1280, 720, bgImage_01, TRUE);
+    
 
     //メインメニューボタン描画
     for (auto b : buttons) b->Draw();
