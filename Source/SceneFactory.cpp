@@ -14,6 +14,10 @@ SceneBase* SceneFactory::CreateFirst(){
 }
 
 SceneBase * SceneFactory::Create(const std::string & name){
+	///
+	/// RETURNで直前のシーンに戻る機能追加
+	/// ここではRETURNの処理はしない。SceneManagerで処理する
+	///
 	if (name == "TEST"){
 		return new TestScene();
 	}

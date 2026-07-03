@@ -44,7 +44,7 @@ HelpScene::HelpScene()
     //[0] 左上の戻るボタン
     auto b_he_00 = new GuiButton(20, 0, 100, 100, "Back");
     b_he_00->SetImage(btnImg_b_he_00);
-    b_he_00->onClick = []() { SceneManager::ChangeScene("TITLE"); };
+    b_he_00->onClick = []() { SceneManager::ChangeScene("RETURN"); };
     buttons.push_back(b_he_00);
 
     //[1] 説明書きを表示する巨大な土台ボタン
