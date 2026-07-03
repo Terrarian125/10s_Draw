@@ -3,7 +3,9 @@
 #include "../Library/Input.h"
 
 GuiButton::GuiButton(int _x, int _y, int _w, int _h, std::string text)
-    : x(_x), y(_y), width(_w), height(_h), label(text), active(true), isFocused(false) {
+    : x(_x), y(_y), width(_w), height(_h), label(text), active(true), isFocused(false)
+    , isIgnoreDimming(false)
+{
     color = GetColor(60, 60, 60);
     hoverCol = GetColor(120, 120, 120);
     SetDrawOrder(10);
@@ -71,23 +73,23 @@ void GuiButton::Update() {
 void GuiButton::Draw() {
     if (!active) return;
 
-    bool highlight = IsMouseOver() || isFocused;
+    //ハイライト条件、または暗くしないフラグが立っているか
+    bool highlight = IsMouseOver() || isFocused || isIgnoreDimming;
 
     if (imageHandle != -1) {
-        //画像がある場合
-        // 輝度を下げて「通常」と「ハイライト」を表現する例
+        // 画像がある場合
         if (highlight) {
-            SetDrawBright(255, 255, 255); // 明るく
+            SetDrawBright(255, 255, 255); //明るく
         }
         else {
-            SetDrawBright(180, 180, 180); // 少し暗く
+            SetDrawBright(180, 180, 180); //少し暗く
         }
         // 画像をボタンのサイズに引き伸ばして描画
         DrawExtendGraph(x, y, x + width, y + height, imageHandle, TRUE);
-        SetDrawBright(255, 255, 255); // 輝度を戻す
+        SetDrawBright(255, 255, 255); //輝度を戻す
     }
     else {
-		//画像がない場合はこっちで描画
+        // 画像がない場合（こちらも highlight の判定に従って色が変わります）
         unsigned int drawCol = highlight ? hoverCol : color;
         DrawBox(x, y, x + width, y + height, drawCol, TRUE);
         DrawBox(x, y, x + width, y + height, GetColor(255, 255, 255), FALSE);

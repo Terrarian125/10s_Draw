@@ -51,6 +51,7 @@ HelpScene::HelpScene()
 
     //[1] 説明書きを表示する巨大な土台ボタン
     auto b_he_01 = new GuiButton(600, 150, 600, 500, "Help");
+    b_he_01->SetIgnoreDimming(true);//常に明るくする
     b_he_01->SetImage(helpDe); //初期状態はデフォルト画像
     b_he_01->onClick = []() {};
     buttons.push_back(b_he_01);

@@ -46,6 +46,7 @@ SelectScene::SelectScene()
 
     // [1] 説明書きボタン
     auto b_se_01 = new GuiButton(bx, 180, bw, 200, "Help");
+	b_se_01->SetIgnoreDimming(true);//常に明るくする
     b_se_01->SetImage(seDefaultImg);
     b_se_01->onClick = []() { SceneManager::ChangeScene("HELP"); };
     buttons.push_back(b_se_01);

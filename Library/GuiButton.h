@@ -10,7 +10,7 @@
 ///onClickに関数を登録して、クリック時の処理を設定します
 ///マウスオーバーとフォーカスでハイライト表示します
 ///アクティブ/非アクティブの切り替えも可能です
-///フォーカス時に説明文を表示する機能も追加予定
+///
 ///以下、使用例です：--------------------------------------
 ////　int bx = 100, //ボタンのX座標
 ////　by = 300, //ボタンのY座標
@@ -52,6 +52,9 @@ public:
 
     void SetImage(int graphHandle) { imageHandle = graphHandle; } //画像を設定するための関数
     void SetIsMovie(bool movie) { isMovie = movie; } //動画を設定するための関数
+
+    void SetIgnoreDimming(bool ignore) { isIgnoreDimming = ignore; }
+    bool isIgnoreDimming = false;
 
     int x, y, width, height;
     unsigned int color, hoverCol;
