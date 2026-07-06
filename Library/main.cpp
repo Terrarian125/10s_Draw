@@ -39,6 +39,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	SetWindowSizeExtendRate(Screen::WINDOW_EXTEND);
 	ChangeWindowMode(Screen::WINDOW_MODE); //Windowモードの場合
 
+	SetWindowStyleMode(7);
+	SetWindowSizeChangeEnableFlag(TRUE, TRUE);//ウィンドウサイズ変更を可能にする
+
 	if (DxLib_Init() == -1)		//ＤＸライブラリ初期化処理
 	{
 		return -1;			//エラーが起きたら直ちに終了
