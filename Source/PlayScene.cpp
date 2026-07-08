@@ -42,7 +42,7 @@ PlayScene::PlayScene()
 
             state = PlayState::Pause;
 
-            //リトライが押された時に、メニューを閉じてその場でPlaySceneの初期化
+            //リトライが押された時に、メニューを閉じる
             pauseLayout = new PauseLayout([this]()
                 {
                     state = PlayState::Playing;
@@ -83,8 +83,6 @@ void PlayScene::Update()
     //ポーズ中はゲームを止める
     if (state == PlayState::Pause)
     {
-        startTime += (LONGLONG)(Time::DeltaTime() * 1000000.0f);
-
         for (auto b : buttons)
             b->Update();
 
@@ -97,7 +95,30 @@ void PlayScene::Update()
         return;
     }
 
-    //PlayState::Playing（通常更新、勝敗判定、20秒判定）
+    //Pキーを押したらポーズ画面を開く
+    if (Input::IsKeyDown(KEY_INPUT_P) && state == PlayState::Playing)
+    {
+        state = PlayState::Pause;
+
+        pauseLayout = new PauseLayout([this]()
+            {
+                state = PlayState::Playing;
+
+                if (pauseLayout)
+                {
+                    pauseLayout->DestroyMe();
+                    pauseLayout = nullptr;
+                }
+
+                //変数をその場でリセット
+                startTime = GetNowHiPerformanceCount(); //シーン開始時間を現在の時刻でリセット
+                gameTimer = 0.0f;                       //タイマー表示を0に戻す
+                fadeAlpha = 255;                        //フェードインの黒ベタを復活
+                uiAlpha = 255;                          //UI透過度を初期に戻す
+            });
+    }
+
+    //PlayState::Playing（通常更新、勝敗判定）
     LONGLONG nowTime = GetNowHiPerformanceCount();
     float elapsedSec = (float)(nowTime - startTime) / 1000000.0f; //経過秒数
 
@@ -109,7 +130,7 @@ void PlayScene::Update()
         fadeAlpha = 0;
     }
 
-    //カウントアップとUI_pl_02のタイムライン制御（元の時間を壊さない安全なロジック）
+    //カウントアップとUI_pl_02のタイムライン制御
     if (elapsedSec >= 3.0f) {
         float countTime = elapsedSec - 3.0f; //カウント開始からの秒数
 
@@ -117,22 +138,10 @@ void PlayScene::Update()
             gameTimer = countTime;
             uiAlpha = 255 - (int)((countTime / 4.5f) * 255);
         }
-        else if (countTime >= 4.5f && countTime < 20.0f) {
-            gameTimer = countTime;
-            uiAlpha = 0; //完全にみえない
-        }
         else {
-            gameTimer = 20.0f;
-            uiAlpha = 255; //再表示
+            gameTimer = countTime;
+            uiAlpha = 0; //4.5秒以降は完全にみえない
         }
-    }
-
-    //20秒経過でリザルト画面
-    if (gameTimer >= 20.0f && state != PlayState::Result)
-    {
-        state = PlayState::Result;
-
-        resultLayout = new ResultLayout(false, false, 20.0f);
     }
 
     //Pauseボタンなどの通常更新
@@ -144,7 +153,7 @@ void PlayScene::Draw()
     //背景はどの状態でも常に最背面に描画
     DrawGraph(0, 0, bgImage_00, FALSE);
 
-    //Drawのステートマシン分岐（設計書通りに配置。各Layoutは自動描画されます）
+    //Drawのステートマシン分岐
     switch (state)
     {
     case PlayState::Playing:
@@ -168,16 +177,12 @@ void PlayScene::Draw()
         DrawGraph(0, 0, ui_pl_01, TRUE);
     }
     else {
-        if (elapsedSec >= 23.0f) {
+        // 4.5秒未満（uiAlpha > 0）の間だけ、UI素材と文字をブレンド描画する
+        if (uiAlpha > 0) {
+            SetDrawBlendMode(DX_BLENDMODE_ALPHA, uiAlpha);
+            DrawGraph(0, 0, ui_pl_02, TRUE);
             DrawFormatStringToHandle(590, 120, GetColor(60, 40, 20), ryeFontHandle, "%04.1f", gameTimer);
-        }
-        else {
-            if (uiAlpha > 0) {
-                SetDrawBlendMode(DX_BLENDMODE_ALPHA, uiAlpha);
-                DrawGraph(0, 0, ui_pl_02, TRUE);
-                DrawFormatStringToHandle(590, 120, GetColor(60, 40, 20), ryeFontHandle, "%04.1f", gameTimer);
-                SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-            }
+            SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
         }
     }
 
