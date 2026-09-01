@@ -30,7 +30,7 @@ PlayScene::PlayScene()
     //シーン開始時刻を記録
     startTime = GetNowHiPerformanceCount();
 
-    //戻るボタンをPauseボタンに変更（設計プラン通りのonClick処理を実装）
+    //戻るボタンをPauseボタンに変更
     int btnImg_b_pl_00 = LoadGraph("data/play/UI_pl_00.png");
     auto b_pl_00 = new GuiButton(20, 0, 100, 100, "pause");
     b_pl_00->SetImage(btnImg_b_pl_00);
